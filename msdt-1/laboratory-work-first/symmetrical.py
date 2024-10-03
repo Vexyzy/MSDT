@@ -1,5 +1,7 @@
 import os
-
+"""
+Information about dependencies from cryptography 
+"""
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
 
 

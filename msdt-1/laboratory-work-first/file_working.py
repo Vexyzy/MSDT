@@ -1,5 +1,10 @@
+"""
+Information about dependencies from json
+"""
 import json
-
+"""
+Information about dependencies from cryptography 
+"""
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
