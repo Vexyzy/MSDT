@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives import hashes
 
 class AsymmetricEncryption:
     """
-    Class for working with key by using Asymetric Encryption.
+    Class for working with key by using Asymmetric Encryption.
     """
     
     @staticmethod

@@ -121,9 +121,9 @@ class FileWorking:
             raise e
             
     @staticmethod
-    def serealization_public_key (public_key_path: str, public_key: rsa.RSAPublicKey) -> None:
+    def serialization_public_key (public_key_path: str, public_key: rsa.RSAPublicKey) -> None:
         """
-        Serealize the public key to a file.
+        Serialize the public key to a file.
         Args:
         - public_key_path (str): The path to the key's file.
         - public_key (rsa.RSAPublicKey) : The public key to serialize.
@@ -139,9 +139,9 @@ class FileWorking:
             raise e
             
     @staticmethod       
-    def serealization_private_key (private_key_path: str, private_key: rsa.RSAPrivateKey) -> None:
+    def serialization_private_key (private_key_path: str, private_key: rsa.RSAPrivateKey) -> None:
         """
-        Serealize the private key to a file.
+        Serialize the private key to a file.
         Args:
         - private_key_path (str): The path to the key's file.
         - private_key (rsa.RSAPrivateKey) : The private key to serialize.
@@ -158,9 +158,9 @@ class FileWorking:
             raise e
             
     @staticmethod     
-    def deserealization_public_key (public_key_path: str) -> rsa.RSAPublicKey: 
+    def deserialization_public_key (public_key_path: str) -> rsa.RSAPublicKey:
         """
-        Deserealize the public key.
+        Deserialize the public key.
         Args:
         - public_key_path (str) : The path to the key's file.
         Returns:
@@ -174,9 +174,9 @@ class FileWorking:
             raise e
         
     @staticmethod
-    def deserealization_private_key (private_key_path: str) -> rsa.RSAPrivateKey:
+    def deserialization_private_key (private_key_path: str) -> rsa.RSAPrivateKey:
         """
-        Deserealize the private key.
+        Deserialize the private key.
         Args:
         - private_key_path (str) : The path to the key's file.
         Returns:
@@ -207,11 +207,11 @@ class FileWorking:
             raise e
         
     @staticmethod      
-    def deserealization_nonce(file_path: str) -> bytes:
+    def deserialization_nonce(file_path: str) -> bytes:
         """
         Deserialize the nonce
         Args:
-        - file_path (str): File path to serealize the nonce.
+        - file_path (str): File path to serialize the nonce.
         Returns:
         - bytes : The bytes read from the file.
         """
