@@ -78,7 +78,12 @@ class FileWorking:
         """
         try:
             with open(file_path, 'w', encoding='utf-8') as file:
-                json.dump(file_content, file, indent=4, ensure_ascii=False)
+                json.dump(
+                    file_content,
+                    file,
+                    indent=4,
+                    ensure_ascii=False
+                )
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The file {file_path} does not exist") from e
         except Exception as e:
@@ -131,8 +136,13 @@ class FileWorking:
         - None
         """
         try:
-            FileWorking.write_bytes_file(public_key_path, public_key.public_bytes(encoding=serialization.Encoding.PEM,
-                    format=serialization.PublicFormat.SubjectPublicKeyInfo))
+            FileWorking.write_bytes_file(
+                public_key_path,
+                public_key.public_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PublicFormat.SubjectPublicKeyInfo
+                )
+            )
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The file {public_key_path} does not exist") from e
         except Exception as e:
@@ -149,9 +159,14 @@ class FileWorking:
         - None
         """
         try:
-            FileWorking.write_bytes_file(private_key_path, private_key.private_bytes(encoding=serialization.Encoding.PEM,
+            FileWorking.write_bytes_file(
+                private_key_path,
+                private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
                     format=serialization.PrivateFormat.TraditionalOpenSSL,
-                    encryption_algorithm=serialization.NoEncryption()))
+                    encryption_algorithm=serialization.NoEncryption()
+                )
+            )
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The file {private_key_path} does not exist") from e
         except Exception as e:
@@ -183,7 +198,10 @@ class FileWorking:
         - rsa.RSAPrivateKey : Returns the private key.
         """
         try:
-            return serialization.load_pem_private_key(FileWorking.read_bytes_file(private_key_path), password=None)
+            return serialization.load_pem_private_key(
+                FileWorking.read_bytes_file(private_key_path),
+                password=None
+            )
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The file {private_key_path} does not exist") from e
         except Exception as e:
