@@ -8,6 +8,7 @@ Information about dependencies from cryptography
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
+QUANTITY_OF_INDENTATION = 4
 
 class FileWorking:
     """
@@ -81,7 +82,7 @@ class FileWorking:
                 json.dump(
                     file_content,
                     file,
-                    indent=4,
+                    indent=QUANTITY_OF_INDENTATION,
                     ensure_ascii=False
                 )
         except FileNotFoundError as e:

@@ -4,6 +4,10 @@ Information about dependencies from cryptography
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import hashes
 
+#key exponent
+PUBLIC_EXPONENT = 65537
+#key length
+KEY_SIZE = 2048
 class AsymmetricEncryption:
     """
     Class for working with key by using Asymmetric Encryption.
@@ -19,8 +23,8 @@ class AsymmetricEncryption:
         - tuple: Return private and public keys.
         """
         private_key = rsa.generate_private_key(
-                public_exponent=65537,
-                key_size=2048
+                public_exponent=PUBLIC_EXPONENT,
+                key_size=KEY_SIZE
             )
         public_key = private_key.public_key()
         return private_key, public_key

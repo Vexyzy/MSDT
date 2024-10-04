@@ -4,6 +4,7 @@ Information about dependencies from cryptography
 """
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
 
+RANDOM_SIZE = 16
 
 class SymmetricEncryption:
     """
@@ -17,7 +18,7 @@ class SymmetricEncryption:
         Returns:
         - bytes: A randomly generated symmetric key.
         """
-        return os.urandom(32)  
+        return os.urandom(RANDOM_SIZE)
 
     @staticmethod
     def encrypt_text(symmetric_key: bytes, text: bytes) -> bytes:
@@ -29,11 +30,11 @@ class SymmetricEncryption:
         Returns:
         - bytes: Encrypted text, prepended by the 16-byte nonce.
         """
-        nonce = os.urandom(16)  
+        nonce = os.urandom(RANDOM_SIZE)
         cipher = Cipher(
             algorithms.ChaCha20(
                 symmetric_key,
-                nonce[:16]
+                nonce[:RANDOM_SIZE]
             ),
             mode=None
         )
@@ -51,12 +52,12 @@ class SymmetricEncryption:
         Returns:
         - bytes: Decrypted plaintext.
         """
-        nonce = encrypted_text[:16]  
-        ciphertext = encrypted_text[16:]
+        nonce = encrypted_text[:RANDOM_SIZE]
+        ciphertext = encrypted_text[RANDOM_SIZE:]
         cipher = Cipher(
             algorithms.ChaCha20(
                 symmetric_key,
-                nonce[:16]
+                nonce[:RANDOM_SIZE]
             ),
             mode=None
         )
