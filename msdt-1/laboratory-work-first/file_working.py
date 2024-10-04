@@ -2,19 +2,24 @@
 Information about dependencies from json
 """
 import json
+
+
 """
 Information about dependencies from cryptography 
 """
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 
+
 QUANTITY_OF_INDENTATION = 4
+
 
 class FileWorking:
     """
     Class for work with files and keys.
     """
-    
+
+
     @staticmethod
     def read_file(file_path: str) -> str:
         """
@@ -31,6 +36,7 @@ class FileWorking:
             raise FileNotFoundError(f"The file {file_path} does not exist") from e
         except Exception as e:
             raise e
+
 
     @staticmethod
     def write_file(file_path: str, file_content: str) -> None:
@@ -50,6 +56,7 @@ class FileWorking:
         except Exception as e:
             raise e
 
+
     @staticmethod 
     def read_json(file_path: str) -> dict:
         """
@@ -66,7 +73,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {file_path} does not exist") from e
         except Exception as e:
             raise e
-        
+
+
     @staticmethod  
     def write_json(file_path: str, file_content: dict) -> None:
         """
@@ -89,7 +97,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {file_path} does not exist") from e
         except Exception as e:
             raise e
-        
+
+
     @staticmethod
     def read_bytes_file(file_path: str) -> bytes:
         """
@@ -108,6 +117,7 @@ class FileWorking:
         except Exception as e:
             raise e
 
+
     @staticmethod
     def write_bytes_file(file_path: str, file_content: bytes) -> None:
         """
@@ -125,7 +135,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {file_path} does not exist") from e
         except Exception as e:
             raise e
-            
+
+
     @staticmethod
     def serialization_public_key(public_key_path: str, public_key: rsa.RSAPublicKey) -> None:
         """
@@ -148,7 +159,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {public_key_path} does not exist") from e
         except Exception as e:
             raise e
-            
+
+
     @staticmethod       
     def serialization_private_key(private_key_path: str, private_key: rsa.RSAPrivateKey) -> None:
         """
@@ -172,7 +184,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {private_key_path} does not exist") from e
         except Exception as e:
             raise e
-            
+
+
     @staticmethod     
     def deserialization_public_key(public_key_path: str) -> rsa.RSAPublicKey:
         """
@@ -188,7 +201,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {public_key_path} does not exist") from e
         except Exception as e:
             raise e
-        
+
+
     @staticmethod
     def deserialization_private_key(private_key_path: str) -> rsa.RSAPrivateKey:
         """
@@ -207,7 +221,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {private_key_path} does not exist") from e
         except Exception as e:
             raise e
-        
+
+
     @staticmethod
     def serialization_nonce(file_path: str, file_nonce: bytes) -> None:
         """
@@ -224,7 +239,8 @@ class FileWorking:
             raise FileNotFoundError(f"The file {file_path} does not exist") from e
         except Exception as e:
             raise e
-        
+
+
     @staticmethod      
     def deserialization_nonce(file_path: str) -> bytes:
         """

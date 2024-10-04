@@ -1,16 +1,21 @@
 import os
+
+
 """
 Information about dependencies from cryptography 
 """
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
 
+
 RANDOM_SIZE = 16
+
 
 class SymmetricEncryption:
     """
     Class for working with text by using Symmetric Encryption.
     """
-    
+
+
     @staticmethod
     def generate_key() -> bytes:
         """
@@ -19,6 +24,7 @@ class SymmetricEncryption:
         - bytes: A randomly generated symmetric key.
         """
         return os.urandom(RANDOM_SIZE)
+
 
     @staticmethod
     def encrypt_text(symmetric_key: bytes, text: bytes) -> bytes:
@@ -41,6 +47,7 @@ class SymmetricEncryption:
         encryptor = cipher.encryptor()
         encrypted_text = encryptor.update(text)
         return nonce + encrypted_text  
+
 
     @staticmethod
     def decrypt_text(symmetric_key: bytes, encrypted_text: bytes) -> bytes:
