@@ -15,7 +15,6 @@ class AsymmetricEncryption:
     Class for working with key by using Asymmetric Encryption.
     """
 
-
     @staticmethod
     def generate_keys() -> tuple:
         """

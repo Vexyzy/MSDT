@@ -15,7 +15,6 @@ class SymmetricEncryption:
     Class for working with text by using Symmetric Encryption.
     """
 
-
     @staticmethod
     def generate_key() -> bytes:
         """

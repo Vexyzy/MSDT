@@ -19,7 +19,6 @@ class FileWorking:
     Class for work with files and keys.
     """
 
-
     @staticmethod
     def read_file(file_path: str) -> str:
         """
