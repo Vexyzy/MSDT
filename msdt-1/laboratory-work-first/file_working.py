@@ -182,7 +182,7 @@ class FileWorking:
         - rsa.RSAPublicKey : Returns the public key.
         """
         try:
-            return serialization.load_pem_public_key(FileWorking.read_bytes_file(public_key_path), password=None)
+            return serialization.load_pem_public_key(FileWorking.read_bytes_file(public_key_path))
         except FileNotFoundError as e:
             raise FileNotFoundError(f"The file {public_key_path} does not exist") from e
         except Exception as e:
