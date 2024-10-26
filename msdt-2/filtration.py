@@ -30,8 +30,9 @@ from skimage.restoration import estimate_sigma # For what we use it?
 from skimage.restoration import denoise_wavelet # For what we use it?
 
 
-
-def wiener(files, progress_bar, progress_label, root):
+# The types for function and parametrs improve readability
+# and understanding of program.
+def wiener(files, progress_bar, progress_label, root): 
    
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
@@ -56,6 +57,9 @@ def wiener(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def gauss(files, progress_bar, progress_label, root):
     
     progress_step = 100 / len(files)
@@ -75,6 +79,9 @@ def gauss(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def median(files, progress_bar, progress_label, root):
     
 
@@ -95,6 +102,9 @@ def median(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def contrast(files, progress_bar, progress_label, root):
     
     progress_step = 100 / len(files)
@@ -115,6 +125,9 @@ def contrast(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def sharpen(files, progress_bar, progress_label, root):
     
     sharpen_mask = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
@@ -135,6 +148,9 @@ def sharpen(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def denoise(files, progress_bar, progress_label, root):
     
     progress_step = 100 / len(files)
@@ -167,6 +183,9 @@ def denoise(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def deconvolution(files, progress_bar, progress_label, root):
     
     progress_step = 100 / len(files)
@@ -192,6 +211,9 @@ def deconvolution(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def wavelet(files, progress_bar, progress_label, root):
     
 
@@ -217,6 +239,9 @@ def wavelet(files, progress_bar, progress_label, root):
     return result_array
 
 
+
+# The types for function and parametrs improve readability
+# and understanding of program.
 def filtration_gui_main(files, mode, progress_bar_info):
     result_array = []
     if mode == "Без предобработки":
