@@ -1,12 +1,38 @@
-from tqdm import tqdm
-import numpy as np
-from skimage import img_as_ubyte, img_as_float
-from skimage.color import rgb2gray
+# Advice: good practic to comment what library do and why we need it.
+# also, according to coding standart, a program must have a documentation. ;)
+
+""" What is this?
+
+What this program do?
+"""
+
+# What is it?
+import numpy as np # For what we use it?
+
+# What is it?
+import cv2 # For what we use it?
+
+# What is it?
+from tqdm import tqdm # For what we use it?
+
+# What is it?
+from scipy import ndimage # For what we use it?
+
+# What is it? 
+from skimage import img_as_ubyte # For what we use it?
+from skimage import img_as_float # For what we use it?
+from skimage.color import rgb2gray # For what we use it?
+from skimage import restoration # For what we use it?
+
+# What is "restoration"? 
+from skimage.restoration import denoise_nl_means # For what we use it?
+from skimage.restoration import estimate_sigma # For what we use it?
+from skimage.restoration import denoise_wavelet # For what we use it?
+
 
 
 def wiener(files, progress_bar, progress_label, root):
-    from skimage import restoration
-
+   
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -31,8 +57,7 @@ def wiener(files, progress_bar, progress_label, root):
 
 
 def gauss(files, progress_bar, progress_label, root):
-    from scipy import ndimage
-
+    
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -51,7 +76,7 @@ def gauss(files, progress_bar, progress_label, root):
 
 
 def median(files, progress_bar, progress_label, root):
-    from scipy import ndimage
+    
 
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
@@ -71,8 +96,7 @@ def median(files, progress_bar, progress_label, root):
 
 
 def contrast(files, progress_bar, progress_label, root):
-    import cv2
-
+    
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -92,8 +116,7 @@ def contrast(files, progress_bar, progress_label, root):
 
 
 def sharpen(files, progress_bar, progress_label, root):
-    import cv2
-
+    
     sharpen_mask = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
@@ -113,8 +136,7 @@ def sharpen(files, progress_bar, progress_label, root):
 
 
 def denoise(files, progress_bar, progress_label, root):
-    from skimage.restoration import denoise_nl_means, estimate_sigma
-
+    
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -146,8 +168,7 @@ def denoise(files, progress_bar, progress_label, root):
 
 
 def deconvolution(files, progress_bar, progress_label, root):
-    from skimage import restoration
-
+    
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -172,7 +193,7 @@ def deconvolution(files, progress_bar, progress_label, root):
 
 
 def wavelet(files, progress_bar, progress_label, root):
-    from skimage.restoration import denoise_wavelet
+    
 
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
