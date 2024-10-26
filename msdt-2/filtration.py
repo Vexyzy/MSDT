@@ -2,7 +2,6 @@ from tqdm import tqdm
 import numpy as np
 from skimage import img_as_ubyte, img_as_float
 from skimage.color import rgb2gray
-# from skimage import io
 
 
 def wiener(files, progress_bar, progress_label, root):
@@ -25,7 +24,6 @@ def wiener(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -46,7 +44,6 @@ def gauss(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -67,7 +64,6 @@ def median(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -89,7 +85,6 @@ def contrast(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -111,7 +106,6 @@ def sharpen(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -145,7 +139,6 @@ def denoise(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -172,7 +165,6 @@ def deconvolution(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
@@ -198,7 +190,6 @@ def wavelet(files, progress_bar, progress_label, root):
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
-        # io.imsave("temp/" + str(i) + ".jpg", restored_img)
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
     root.update_idletasks()
