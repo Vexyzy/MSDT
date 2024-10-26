@@ -1,7 +1,7 @@
 # Advice: good practic to comment what library do and why we need it.
 # also, according to coding standart, a program must have a documentation. ;)
 
-""" What is this?
+"""What is this?
 
 What this program do?
 """
@@ -33,7 +33,8 @@ from skimage.restoration import denoise_wavelet # For what we use it?
 # The types for function and parametrs improve readability
 # and understanding of program.
 def wiener(files, progress_bar, progress_label, root): 
-   
+    """Functions need a information about what they do"""
+
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -61,7 +62,8 @@ def wiener(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def gauss(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
+
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -83,7 +85,7 @@ def gauss(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def median(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
 
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
@@ -106,7 +108,8 @@ def median(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def contrast(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
+
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -129,7 +132,8 @@ def contrast(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def sharpen(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
+
     sharpen_mask = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
@@ -152,7 +156,8 @@ def sharpen(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def denoise(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
+
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -187,7 +192,8 @@ def denoise(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def deconvolution(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
+
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
@@ -215,7 +221,7 @@ def deconvolution(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def wavelet(files, progress_bar, progress_label, root):
-    
+    """Functions need a information about what they do"""
 
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
@@ -243,6 +249,8 @@ def wavelet(files, progress_bar, progress_label, root):
 # The types for function and parametrs improve readability
 # and understanding of program.
 def filtration_gui_main(files, mode, progress_bar_info):
+    """Functions need a information about what they do"""
+
     result_array = []
     if mode == "Без предобработки":
         result_array = files
@@ -303,3 +311,6 @@ def filtration_gui_main(files, mode, progress_bar_info):
             progress_bar_info[2],
         )
     return result_array
+
+
+
