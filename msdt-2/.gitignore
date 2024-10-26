@@ -1,0 +1,6 @@
+# all hides repo and hides files
+.*/ 
+.*
+!/.gitignore
+# virtual machine repo
+env/
