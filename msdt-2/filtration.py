@@ -34,11 +34,15 @@ from skimage.restoration import denoise_wavelet # For what we use it?
 # and understanding of program.
 def wiener(files, progress_bar, progress_label, root): 
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     psf = np.ones((5, 5)) / 25
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
@@ -49,12 +53,19 @@ def wiener(files, progress_bar, progress_label, root):
             / (np.max(restored_img) - np.min(restored_img))
         )
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
-        progress_label.config(text=round(progress_bar["value"]))
+        progress_label.config(text=round(progress_bar['value']))
         root.update_idletasks()
+        #==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -63,21 +74,32 @@ def wiener(files, progress_bar, progress_label, root):
 # and understanding of program.
 def gauss(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         restored_img = ndimage.gaussian_filter(files[i], 2)
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -86,21 +108,33 @@ def gauss(files, progress_bar, progress_label, root):
 # and understanding of program.
 def median(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    # init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
+
     result_array = []
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         restored_img = ndimage.median_filter(files[i], 3)
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -109,22 +143,33 @@ def median(files, progress_bar, progress_label, root):
 # and understanding of program.
 def contrast(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
         restored_img = clahe.apply(files[i])
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -135,20 +180,31 @@ def sharpen(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
 
     sharpen_mask = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         restored_img = cv2.filter2D(files[i], -1, sharpen_mask)
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -157,11 +213,15 @@ def sharpen(files, progress_bar, progress_label, root):
 # and understanding of program.
 def denoise(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     patch_kw = dict(patch_size=2, patch_distance=2)
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
@@ -179,12 +239,19 @@ def denoise(files, progress_bar, progress_label, root):
             / (np.max(restored_img) - np.min(restored_img))
         )
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -193,11 +260,15 @@ def denoise(files, progress_bar, progress_label, root):
 # and understanding of program.
 def deconvolution(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     psf = np.ones((3, 3)) / 25
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
@@ -208,12 +279,19 @@ def deconvolution(files, progress_bar, progress_label, root):
             / (np.max(restored_img) - np.min(restored_img))
         )
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -222,11 +300,15 @@ def deconvolution(files, progress_bar, progress_label, root):
 # and understanding of program.
 def wavelet(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    
+    # This is a good idea to take this code in the function, for example 
+    #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
     progress_bar["value"] = 0
     progress_label.config(text="0")
     root.update_idletasks()
+    #========
+
     result_array = []
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         img = img_as_float(rgb2gray(files[i]))
@@ -236,12 +318,19 @@ def wavelet(files, progress_bar, progress_label, root):
             / (np.max(restored_img) - np.min(restored_img))
         )
         result_array.append(restored_img)
+        # It's good idea to take this part of code in function too. For my opinion
+        # good name for this function upate_progress_bar(params...). Dont forget
+        # to use types :)
         progress_bar["value"] += progress_step
         progress_label.config(text=round(progress_bar["value"]))
         root.update_idletasks()
+        # ==========
+    # also in function (update_progress_bar(params...). In those function check
+    # the condition progress_bar += step > 100. You can put in the while e.g.
     progress_bar["value"] = 100
     progress_label.config(text=progress_bar["value"])
-    root.update_idletasks()
+    root.update_idletasks()   
+    #==========
     return result_array
 
 
@@ -311,6 +400,5 @@ def filtration_gui_main(files, mode, progress_bar_info):
             progress_bar_info[2],
         )
     return result_array
-
 
 
