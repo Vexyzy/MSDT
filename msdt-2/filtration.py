@@ -355,7 +355,15 @@ def wavelet(files, progress_bar, progress_label, root):
 # and understanding of program.
 def filtration_gui_main(files, mode, progress_bar_info):
     """Functions need a information about what they do"""
-
+    # Very important to use in this method structure if-elif-else. Elif you should
+    # use, because computer check now all your if, but if mode == "Винер" you don't
+    # need to check if mode == "Гаусс", you already refuted it :). 
+    #
+    # Also use operator ELSE. Because, if there are some exception with naming of
+    # mode, your program don't catch it. For exaple mode = "Виенерр". This little 
+    # mistake will destroy all our program :(. And we need use ELSE, you could not
+    # write anything in this, but you must to create it, because ELSE will protect
+    # our code from mistakes. 
     result_array = []
     if mode == "Без предобработки":
         result_array = files
