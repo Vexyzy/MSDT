@@ -190,7 +190,12 @@ def contrast(files, progress_bar, progress_label, root):
 def sharpen(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
     # It's no good idea use magical numbers
-    sharpen_mask = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
+    sharpen_mask = np.array([
+                    [ -1, -1, -1 ],
+                    [ -1,  9, -1 ],
+                    [ -1, -1, -1 ], # nit: good idea to put comma in 
+                                    # the end of the list
+                ])
     # This is a good idea to take this code in the function, for example 
     #init_progress_bar(), because this code uses in program > 2 time
     progress_step = 100 / len(files)
