@@ -52,6 +52,7 @@ def wiener(files, progress_bar, progress_label, root):
     #========
 
     result_array = []
+    # It's no good idea use magical numbers
     psf = np.ones((5, 5)) / 25
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         img = img_as_float(rgb2gray(files[i]))
@@ -188,7 +189,7 @@ def contrast(files, progress_bar, progress_label, root):
 # and understanding of program.
 def sharpen(files, progress_bar, progress_label, root):
     """Functions need a information about what they do"""
-
+    # It's no good idea use magical numbers
     sharpen_mask = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
     # This is a good idea to take this code in the function, for example 
     #init_progress_bar(), because this code uses in program > 2 time
