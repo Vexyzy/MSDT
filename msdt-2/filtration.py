@@ -32,6 +32,14 @@ from skimage.restoration import denoise_wavelet # For what we use it?
 
 # The types for function and parametrs improve readability
 # and understanding of program.
+
+## The next advice: see, you use in (anchor 1) code, that works with files. 
+## And we can see, that this code repeats in all functions, that use methods to
+## convert images. Can we create a function, that will have cycle for all images
+## and convert this images from the conver_params? See, i means we don't need functions
+## for convertation, because the library already realized it. It's good idea to create
+## function, as i already said, that only choose suitable method for convertation.
+## This advice concerns all your converts functions :) 
 def wiener(files, progress_bar, progress_label, root): 
     """Functions need a information about what they do"""
     
@@ -47,7 +55,7 @@ def wiener(files, progress_bar, progress_label, root):
     psf = np.ones((5, 5)) / 25
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         img = img_as_float(rgb2gray(files[i]))
-        restored_img, _ = restoration.unsupervised_wiener(img, psf)
+        restored_img, _ = restoration.unsupervised_wiener(img, psf) # anchor 1
         restored_img = img_as_ubyte(
             (restored_img - np.min(restored_img))
             / (np.max(restored_img) - np.min(restored_img))
@@ -84,6 +92,9 @@ def gauss(files, progress_bar, progress_label, root):
     #========
 
     result_array = []
+    # nit: dont ise i in cycles. It's more beautiful, if you use, for example
+    # file_index. Because, if you have a nested cycle, you can forget, what i and, 
+    # e.g. "j" means.
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
         restored_img = ndimage.gaussian_filter(files[i], 2)
         result_array.append(restored_img)
@@ -116,7 +127,6 @@ def median(files, progress_bar, progress_label, root):
     progress_label.config(text="0")
     root.update_idletasks()
     #========
-
 
     result_array = []
     for i in tqdm(range(0, len(files)), desc="Фильтрация: "):
