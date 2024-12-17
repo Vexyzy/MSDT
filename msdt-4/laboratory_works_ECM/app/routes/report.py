@@ -30,6 +30,7 @@ def create_report():
 
     logger.debug("Attemt of delete report file")
     if os.path.exists(REPORT_NAME_WITH_PATH):
+        logger.debug("Report file succesfully deleted!")
         os.remove(REPORT_NAME_WITH_PATH)
     else:
         logger.debug("Report file doesn't exists.")
@@ -40,7 +41,9 @@ def create_report():
     cell_format_money = workbook.add_format({"num_format": "#,##,00 р"})
 
     # Получаем id всех предприятий
-    sql_get_enterprises_id = text(f"SELECT enterprise_id FROM enterprise;")
+    sql_get_enterprises_id = text(
+        "SELECT enterprise_id FROM enterprise;"
+    )
 
     with DB.engine.connect() as conn:
         enterprises_id = conn.execute(sql_get_enterprises_id).fetchall()
