@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Добавление предприятия{% endblock %}
+
+{% block content %}
+<form method="post" class="form-control">
+
+  <input name="enterprise_name" type="text" placeholder="Название предприятия"
+         minlength="1" maxlength="300" class="form-control" required>
+  <input name="address" type="text" placeholder="Адрес"
+         minlength="11" maxlength="400" class="form-control" required>
+  <input name="phone" type="text" placeholder="Телефон"
+         minlength="3" maxlength="16" class="form-control">
+  <input value="Добавить"  type="submit" class="btn btn_submit">
+
+</form>
+
+{% endblock %}

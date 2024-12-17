@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Самые востребованные товары{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="table-wrapper">
+  <table class="fl-table">
+    <thead>
+    <tr>
+      <th>Название товара</th>
+      <th>Количество в заказах</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for product in products %}
+    <tr>
+      <td>{{ product.product_name }}</td>
+      <td>{{ product.total_quantity_in_orders }}</td>
+    </tr>
+    {% endfor %}
+    <tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Все товары{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/htmx.org/dist/htmx.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<input
+        type="text"
+        class="input"
+        placeholder="search"
+        name="product_name"
+        hx-get="/product/search"
+        hx-trigger="keyup changed delay:10ms"
+        hx-target="#results"
+>
+<div class="table-wrapper">
+  <table class="fl-table">
+    <thead>
+    <tr>
+      <th>Название товара</th>
+      <th>Бренд</th>
+      <th>Исчесление</th>
+      <th>Цена</th>
+      <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody id="results">
+
+    {% for product in products %}
+    <tr>
+      <td>{{ product.product_name }}</td>
+      <td>{{ product.brand_name }}</td>
+      <td>{{ product.measurement }}</td>
+      <td>{{ product.price }}</td>
+      <td>
+        <a href="{{ url_for('order.create_order', product_id=product.product_id) }}"
+           class="btn btn-sm btn-secondary btn-buy">
+          <span class="fa fa-buy">buy</span>
+        </a>
+        <a href="{{ url_for('product.update_product', id=product.product_id) }}"
+           class="btn btn-sm btn-secondary">
+          <span class="fa fa-edit">edit</span>
+        </a>
+        <a href="{{ url_for('product.delete_product', id=product.product_id) }}" class="btn btn-sm btn-danger">
+          <span class="fa fa-trash">remove</span>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+    <tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+{% endblock %}

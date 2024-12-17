@@ -1,0 +1,21 @@
+{% for product in products %}
+<tr>
+      <td>{{ product.product_name }}</td>
+      <td>{{ product.brand_name }}</td>
+      <td>{{ product.measurement }}</td>
+      <td>{{ product.price }}</td>
+      <td>
+        <a href="{{ url_for('order.create_order', product_id=product.product_id) }}"
+           class="btn btn-sm btn-secondary btn-buy">
+          <span class="fa fa-buy">buy</span>
+        </a>
+        <a href="{{ url_for('product.update_product', id=product.product_id) }}"
+           class="btn btn-sm btn-secondary">
+          <span class="fa fa-edit">edit</span>
+        </a>
+        <a href="{{ url_for('product.delete_product', id=product.product_id) }}" class="btn btn-sm btn-danger">
+          <span class="fa fa-trash">remove</span>
+        </a>
+      </td>
+    </tr>
+{% endfor %}

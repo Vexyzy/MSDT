@@ -1,0 +1,139 @@
+@import url('../fonts/Raleway/Raleway-Bold.ttf');
+@import url('../fonts/Raleway/Raleway-Regular.ttf');
+
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700
+}
+
+h1, h2, h3
+{
+    text-align: center;
+}
+
+h2
+{
+    width: 400px;
+    margin: 0 auto;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 20px;
+}
+
+.page
+{
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header
+{
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+footer
+{
+    padding: 20px;
+}
+
+.content
+{
+    padding: 40px 20px;
+    flex: 1 1 auto;
+}
+
+.header__logo
+{
+    width: 48px;
+    height: 48px;
+}
+
+.btn_submit
+{
+    width: 100%;
+    background-color: #0dcaf0;
+    color: black;
+    transition: .2s color;
+    transition: .2s background-color;
+}
+
+input:not(:last-child)
+{
+    margin-bottom: 15px;
+}
+
+.btn_submit:hover
+{
+    background-color: black;
+    color: #0dcaf0;;
+}
+
+.error
+{
+    font-weight: 700;
+    color: red;
+}
+
+.btn-delete
+{
+    background-color: #FF3300;
+    color: black;
+    width: 200px;
+    padding: 10px;
+    margin: 20px;
+    font-weight: 700;
+}
+.btn-undo
+{
+    background-color: gray;
+    color: white;
+    width: 200px;
+    padding: 10px;
+    font-weight: 700;
+}
+
+.error
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.btn-buy
+{
+    background-color: limegreen;
+    border-color: black;
+}
+.btn-buy:hover
+{
+    background: #2ba92b;
+}
+
+.green
+{
+    background-color: #4FC3A1;
+}
+
+.table-wrapper
+{
+    margin: 0 !important;
+}

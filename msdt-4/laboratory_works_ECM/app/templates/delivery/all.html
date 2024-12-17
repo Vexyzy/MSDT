@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Доставки{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="table-wrapper">
+  <table class="fl-table">
+    <thead>
+    <tr>
+      <th>Продукт</th>
+      <th>Количество</th>
+      <th>Дата доставки</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for delivery in deliveries %}
+    <tr>
+      <td>{{ delivery.product_name }}</td>
+      <td>{{ delivery.quantity }}</td>
+      <td>{{ delivery.execution_date }}</td>
+      <td>
+        <a href="{{ url_for('delivery.delete_delivery', id=delivery.delivery_id) }}" class="btn btn-sm btn-danger">
+          <span class="fa fa-trash">remove</span>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+    <tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block script %}
+  <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+{% endblock %}

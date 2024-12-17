@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Редактирование товара  {{ product.product_name }} {% endblock %}
+
+{% block content %}
+<form method="post" class="form-control">
+
+     <input value="{{ product.product_name }}" name="product_name" type="text" placeholder="Название продукта"
+           minlength="4" maxlength="300" class="form-control" required>
+    <input value="{{ product.brand_id }}" name="brand_id" type="number" placeholder="id бренда (принимает только цифры)"
+           class="form-control" pattern="^[0-9]+$" max="2147483647" required>
+    <input value="{{ product.measurement }}" name="measurement" type="text" placeholder="Исчисление"
+           class="form-control" pattern="^[A-Za-z]+$" maxlength="50" required>
+    <input value="{{ product.price }}" name="price" type="number" placeholder="Цена" class="form-control"
+           pattern="^[0-9]+$" required min="1" max="2147483647">
+    <input value="Обновить" type="submit" class="btn btn_submit" required>
+
+</form>
+{% endblock %}

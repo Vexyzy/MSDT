@@ -1,0 +1,15 @@
+[project]
+requires-python = ">=3.9"
+
+[tool.ruff]
+line-length = 79
+src = ["src"]
+
+# rooles: https://docs.astral.sh/ruff/rules/
+select = [
+  "E", # pycodestyle
+  "F", # pyflakes
+  "UP", # pyupgrade
+  "N", # pep8-naming
+  "ERA", # found commented-out code
+]

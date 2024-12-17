@@ -1,0 +1,28 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div class="col-md-3 mb-2 mb-md-0">
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img class="header__logo" src="{{ url_for('static', filename='img/logo.png') }}">
+        </a>
+    </div>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li>
+            <form>
+                <li>
+                    <a href="{{ url_for('report.create_report') }}" class="nav-link px-2">Отчет</a>
+                </li>
+            </form>
+        </li>
+    </ul>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{ url_for('product.show_most_sell_product') }}" class="nav-link px-2">Самые востребованные товары</a></li>
+        <li><a href="{{ url_for('product.order_delivered') }}" class="nav-link px-2">Заказанные/доставленные товары</a></li>
+    </ul>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{ url_for('product.show_product') }}" class="nav-link px-2">Товары</a></li>
+        <li><a href="{{ url_for('order.show_order') }}" class="nav-link px-2">Заказы</a></li>
+        <li><a href="{{ url_for('delivery.show_delivery') }}" class="nav-link px-2">Доставка</a></li>
+    </ul>
+</header>

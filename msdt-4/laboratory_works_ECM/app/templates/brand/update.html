@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Редактирование бренда {{ brand.brand_id }} {% endblock %}
+
+{% block content %}
+<form method="post" class="form-control">
+
+  <input value="{{ brand.brand_name }}" name="brand_name" type="text"
+         minlength="4" placeholder="Название бренда" class="form-control" required>
+  <input value="Обновить" minlength="4" type="submit" class="btn btn_submit">
+
+</form>
+{% endblock %}

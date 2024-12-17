@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Отношение доставленных и заказанных товаров{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="table-wrapper">
+  <table class="fl-table">
+    <thead>
+    <tr>
+      <th>Название товара</th>
+      <th>Сколько заказано</th>
+      <th>Сколько доставлено</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for product in products %}
+    <tr>
+      <td>{{ product.product_name }}</td>
+      <td>{{ product.total_ordered }}</td>
+      <td>{{ product.total_delivered }}</td>
+    </tr>
+    {% endfor %}
+    <tbody>
+  </table>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+{% endblock %}

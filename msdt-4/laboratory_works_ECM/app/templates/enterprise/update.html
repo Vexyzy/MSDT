@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Редактирование бренда {{ enterprise.enterprise_id }} {% endblock %}
+
+{% block content %}
+<form method="post" class="form-control">
+
+  <input value="{{ enterprise.enterprise_name }}" name="enterprise_name" type="text" placeholder="Название предприятия"
+         minlength="1" maxlength="300" class="form-control" required>
+  <input value="{{ enterprise.address }}" name="address" type="text" placeholder="Адрес"
+         minlength="10" maxlength="400" class="form-control" required>
+  <input value="{{ enterprise.phone }}" name="phone" type="text" placeholder="Телефон"
+         minlength="3" maxlength="16" class="form-control">
+  <input value="Обновить"  type="submit" class="btn btn_submit">
+
+</form>
+{% endblock %}

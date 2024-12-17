@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Добавление бренда{% endblock %}
+
+{% block content %}
+<form method="post" class="form-control">
+
+  <input name="brand_name" type="text" placeholder="Название бренда"
+         minlength="4" class="form-control" required>
+  <input value="Добавить" type="submit" class="btn btn_submit">
+
+</form>
+
+{% endblock %}
