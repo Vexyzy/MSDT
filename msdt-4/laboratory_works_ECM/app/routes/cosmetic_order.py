@@ -1,17 +1,14 @@
-import random
 import datetime
-from calendar import different_locale
-
-import flask
+import random
 import psycopg2
 import sqlalchemy
+from flask import Blueprint, flash, redirect, render_template, request
+from sqlalchemy import text
 
+from ..etc.logger import logger
 from ..extensions import DB
 from ..models.cosmetic_order import CosmeticOrder
 from ..models.product import Product
-from ..models.delivery import Delivery
-from sqlalchemy import text
-from flask import Blueprint, render_template, request, redirect, flash
 
 ORDER = Blueprint('order', __name__)
 
@@ -41,11 +38,13 @@ def create_order():
     product_id = request.args.get('product_id')
     print(product_id)
     if product_id is None or product_id == '':
+        logger.debug("Attemt of creating ordder. The product in none. Can't create order.")
         error = 'Не передан продукт'
         flash(error, 'danger')
         return redirect('/order')
 
     if not product_id.isdigit():
+        logger.debug("Attemt of creating order. The product doesn't exists. Can't create order.")
         error = 'Такого продукта не существует'
         flash(error, 'danger')
         return redirect('/order')
@@ -63,7 +62,6 @@ def create_order():
         execution_date = order_date + datetime.timedelta(
             days=random.randint(3,20)
         )
-
         try:
             order = CosmeticOrder(
                 enterprise_id=enterprise_id,
@@ -72,17 +70,50 @@ def create_order():
                 order_date=order_date,
                 execution_date=execution_date
             )
+            logger.info(
+                  "Attemt of creating order"
+                + f"(id: {order.cosmetic_order_id})"
+                + f"(product_id: {order.product_id})"
+            )
+            # Let's call some exception for checking logs:
+            # raise Exception("NO ANY ORDERS TODAY!")
             DB.session.add(order)
             DB.session.commit()
-            order_id = order.cosmetic_order_id
-            print('/delivery/create?order_id=' + str(order_id))
-            return redirect('/delivery/create?order_id=' + str(order_id))
+            logger.debug(
+                  "Order succesfully created"
+                + f"(id: {order.cosmetic_order_id})"
+                + f"(product_id: {order.product_id})!"
+            )
+            print('/delivery/create?order_id=' + str(order.cosmetic_order_id))
+            return redirect(
+                '/delivery/create?order_id='
+                + str(order.cosmetic_order_id)
+            )
 
 
         except (sqlalchemy.exc.IntegrityError,
                 psycopg2.errors.ForeignKeyViolation):
             DB.session.rollback()
             flash('Такого id предприятия не существует', 'danger')
+            return render_template(
+                'order/create.html',
+                product=product
+            )
+
+        except Exception as error:
+            logger.error(
+                "Error of creating order"
+                + f"(id: {order.cosmetic_order_id})"
+                + f"(product_id: {order.product_id})"
+                + " "
+                + "Error mesage: "
+                + str(error)
+            )
+
+            flash(
+                'Возникла непредвиденная ошибка при создании заказа',
+                'danger'
+            )
             return render_template(
                 'order/create.html',
                 product=product
@@ -107,6 +138,7 @@ def delete_order(id: int):
         print(delivery)
         if not delivery:
             # мягкое удаление заказа
+            logger.debug("Soft deleted from orders is started")
             replace_order = text(
                 f"INSERT INTO cosmetic_order_deleted\n"
                 f"SELECT * FROM cosmetic_order\n"
@@ -123,7 +155,7 @@ def delete_order(id: int):
                 f"COMMIT;"
             )
             with DB.engine.connect() as conn:
-                print("Мягкое удаление завершено!")
+                logger.debug("Soft deleted of orders succesfully complete!")
                 conn.execute(transaction_safe_delete)
             flash('Успешно удален заказ!')
             return redirect('/order')
@@ -139,6 +171,7 @@ def integrity_error(id: int):
     if request.method == 'POST':
         try:
             # Мягко удаляем доставку
+            logger.debug("Soft deleted (cascade) from orders is started")
             replace_delivery = text(
                 f"INSERT INTO delivery_deleted\n"
                 f"SELECT * FROM delivery\n"
@@ -172,10 +205,9 @@ def integrity_error(id: int):
             )
 
             with DB.engine.connect() as conn:
-                print('Удаление транзакций')
                 conn.execute(transaction_safe_delete_delivery)
-                print('Удаление заказов')
                 conn.execute(transaction_safe_delete_order)
+                logger.debug("Soft deleted (cascade) is succesfully completed!")
 
             flash('Все успешно удалено!', 'success')
             return redirect('/order')
