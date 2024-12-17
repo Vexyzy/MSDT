@@ -1,20 +1,18 @@
 from flask import Flask
 
-from .extensions import DB
-from .extensions import MIGRATE
-from .extensions import UPLOAD_FOLDER
-from .extensions import ALLOWED_EXTENSIONS
-from .config import Config
-from .routes.error import ERROR
+from .etc.logger import logger
+from .etc.config import Config
+from .extensions import DB, MIGRATE
 from .routes.brand import BRAND
-from .routes.product import PRODUCT
 from .routes.cosmetic_order import ORDER
-from .routes.enterprise import ENTERPRISE
 from .routes.delivery import DELIVERY
+from .routes.enterprise import ENTERPRISE
+from .routes.error import ERROR
+from .routes.product import PRODUCT
 from .routes.report import REPORT
 
 
-
+@logger.catch
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
