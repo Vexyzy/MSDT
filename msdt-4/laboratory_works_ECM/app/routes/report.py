@@ -2,57 +2,48 @@ import datetime
 import os
 
 import flask
-from flask import Blueprint, redirect, flash
+import xlsxwriter
+from flask import Blueprint, flash, redirect
 from sqlalchemy import text
 
-from ..extensions import DB
 from ..etc.logger import logger
+from ..extensions import DB
 
+REPORT = Blueprint("report", __name__)
 
-import xlsxwriter
-
-
-REPORT = Blueprint('report', __name__)
-
-REPORT_NAME_WITH_PATH = (f'/Users/ivanaleksandrovci/code/ssau_laboratory/'
-                         f'laboratory_works_ECM/excel/uploads/'
-                         f'Сведения об исполненных заказах на поставку '
-                         f'косметической продукции'
-               f'предприятиям торговли и сервиса за '
-               f'{datetime.datetime.now().year} год.xlsx'
+REPORT_NAME_WITH_PATH = (
+    f"/Users/ivanaleksandrovci/code/ssau_laboratory/"
+    f"laboratory_works_ECM/excel/uploads/"
+    f"Сведения об исполненных заказах на поставку "
+    f"косметической продукции"
+    f"предприятиям торговли и сервиса за "
+    f"{datetime.datetime.now().year} год.xlsx"
 )
 
+
 @logger.catch
-@REPORT.route('/report', methods=['GET', 'POST'])
+@REPORT.route("/report", methods=["GET", "POST"])
 def create_report():
     logger.debug(
-        "Starting building report of orders in "
-      + f"{datetime.datetime.now().year}"
+        "Starting building report of orders in " + f"{datetime.datetime.now().year}"
     )
 
-    try:
+    logger.debug("Attemt of delete report file")
+    if os.path.exists(REPORT_NAME_WITH_PATH):
         os.remove(REPORT_NAME_WITH_PATH)
-    except OSError:
-        pass
+    else:
+        logger.debug("Report file doesn't exists.")
 
     workbook = xlsxwriter.Workbook(REPORT_NAME_WITH_PATH)
     worksheet = workbook.add_worksheet()
-    cell_format_bolt = workbook.add_format({'bold': True})
-    cell_format_money = workbook.add_format(
-        {
-            'num_format': '#,##,00 р'
-        }
-    )
+    cell_format_bolt = workbook.add_format({"bold": True})
+    cell_format_money = workbook.add_format({"num_format": "#,##,00 р"})
 
     # Получаем id всех предприятий
-    sql_get_enterprises_id = text(
-        f"SELECT enterprise_id FROM enterprise;"
-    )
+    sql_get_enterprises_id = text(f"SELECT enterprise_id FROM enterprise;")
 
     with DB.engine.connect() as conn:
-        enterprises_id = conn.execute(
-            sql_get_enterprises_id
-        ).fetchall()
+        enterprises_id = conn.execute(sql_get_enterprises_id).fetchall()
 
     row_id = 0
     total_sum = 0
@@ -70,16 +61,12 @@ def create_report():
             continue
 
         # Написать именования колонок
-        worksheet.write(row_id, 0, 'Наименование товара', cell_format_bolt)
-        worksheet.write(row_id, 1, 'Наименование бренда', cell_format_bolt
-        )
-        worksheet.write(row_id, 2, 'Дата исполенения заказа', cell_format_bolt
-        )
-        worksheet.write(row_id, 3,
-                        'Количество товара в доставке', cell_format_bolt
-        )
-        worksheet.write(row_id, 4, 'Цена, руб.', cell_format_bolt)
-        worksheet.write(row_id, 5, 'Стоимость, руб.', cell_format_bolt)
+        worksheet.write(row_id, 0, "Наименование товара", cell_format_bolt)
+        worksheet.write(row_id, 1, "Наименование бренда", cell_format_bolt)
+        worksheet.write(row_id, 2, "Дата исполенения заказа", cell_format_bolt)
+        worksheet.write(row_id, 3, "Количество товара в доставке", cell_format_bolt)
+        worksheet.write(row_id, 4, "Цена, руб.", cell_format_bolt)
+        worksheet.write(row_id, 5, "Стоимость, руб.", cell_format_bolt)
         row_id += 1
 
         # Пройтись по всем данным
@@ -95,24 +82,25 @@ def create_report():
             # Прибавить к сумме предприятия сумму заказа
             enterprise_sum += int(order_info[i][5])
         # Написать суммарную сумму по предприятию и ее название
-        worksheet.write(row_id, 0, 'Предприятие')
+        worksheet.write(row_id, 0, "Предприятие")
         enterprise_name = get_enterprise_name(enterprise_id[0])
         worksheet.write(row_id, 1, enterprise_name)
         row_id += 1
-        worksheet.write(row_id, 0, 'Итого по предприятию: ')
+        worksheet.write(row_id, 0, "Итого по предприятию: ")
         worksheet.write(row_id, 1, enterprise_sum, cell_format_money)
         # Прибать сумму предприятия к полной и обнулить сумму предприятия
         total_sum += enterprise_sum
         enterprise_sum = 0
         # Поставить черту и сделать отстпуп
         row_id += 3
-    worksheet.write(row_id, 0, 'Итого по всем предприятиям')
+    worksheet.write(row_id, 0, "Итого по всем предприятиям")
     worksheet.write(row_id, 1, total_sum, cell_format_money)
     worksheet.autofit()
     workbook.close()
     logger.debug("The report succesfully build!")
 
     return flask.send_file(REPORT_NAME_WITH_PATH, as_attachment=True)
+
 
 def get_enterprise_name(enterprise_id: int) -> str:
     sql_get_enterprise_name = text(
@@ -123,6 +111,7 @@ def get_enterprise_name(enterprise_id: int) -> str:
     with DB.engine.connect() as conn:
         enterprise_name = conn.execute(sql_get_enterprise_name).fetchone()[0]
     return enterprise_name
+
 
 def get_order_by_enterprise_id(enterprise_id: int) -> list:
     sql_get_report = text(
@@ -148,6 +137,3 @@ def get_order_by_enterprise_id(enterprise_id: int) -> list:
         order_info = conn.execute(sql_get_report).fetchall()
     print(order_info)
     return order_info
-
-
-
