@@ -3,6 +3,7 @@ import sqlalchemy
 from flask import Blueprint, flash, redirect, render_template, request
 from sqlalchemy import text
 
+from ..etc.logger import logger
 from ..extensions import DB
 from ..models.product import Product
 
@@ -49,6 +50,7 @@ def search_product():
 
 @PRODUCT.route("/product/order-delivered", methods=["GET"])
 def order_delivered():
+    logger.debug("Open order-deliverd page.")
     select_order_delivered = text(
         "SELECT "
         "p.product_name, "
@@ -70,6 +72,7 @@ def order_delivered():
 
 @PRODUCT.route("/product/most-sell", methods=["GET"])
 def show_most_sell_product():
+    logger.debug("Open most sell product page.")
     sql_request = text(
         "SELECT product.product_id, product.product_name, "
         "SUM(cosmetic_order.quantity_of_product) "
@@ -105,14 +108,21 @@ def create_product():
         try:
             DB.session.add(product)
             DB.session.commit()
+            logger.info(f"The product with product_id={product.product_id}"
+                      + "successfully adde!")
             flash("Товар успешно добавлен", "success")
             return redirect("/product/create")
         except sqlalchemy.exc.IntegrityError:
             flash("Такого id бренда не существует", "danger")
+            logger.debug("Error of creating product. Brand doesn't exists")
             return render_template("product/create.html", product=product)
         except Exception as e:
-            print(e)
-            flash(str(e), "danger")
+            logger.error(
+                "Error of creating product"
+                + f"(id: {product.product_id})"
+                + str(e)
+            )
+            flash("Возникла непредвиденная ошибка в создании товара", "danger")
             return render_template("product/create.html", product=product)
     else:
         return render_template("product/create.html", product=None)
@@ -136,7 +146,12 @@ def update_product(id):
             return render_template("product/update.html", product=product)
         except Exception as e:
             DB.session.rollback()  # Откат транзакции для любых других ошибок
-            flash("Произошла ошибка при обновлении товара")
+            logger.error(
+                "Error of updating product"
+                + f"(id: {product.product_id})"
+                + str(e)
+            )
+            flash("Произошла непредвиденная ошибка при обновлении товара")
             return render_template("product/update.html", product=product)
 
     else:
@@ -239,8 +254,12 @@ def integrity_error(id):
             return redirect("/product")
 
         except Exception as e:
-            flash("Произошла ошибка удалениея", "danger")
-            print(e)
+            flash("Произошла непредвиденная ошибка удалениея", "danger")
+            logger.error(
+                "Error of deleting product"
+                + f"(id: {product.product_id})"
+                + str(e)
+            )
             return redirect("/product")
     else:
         return render_template(

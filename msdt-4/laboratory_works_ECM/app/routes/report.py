@@ -51,10 +51,13 @@ def create_report():
     row_id = 0
     total_sum = 0
     enterprise_sum = 0
+
     # Имитируем ошибку
     logger.error("Can't create report. There are some math mistakes and...")
     flash("Внезапная ошибка в построении отчёта!", "danger")
     return redirect("/")
+    # конец имитации ошибки
+
     # Проходимся по всем полученные id предприятий доставки
     for enterprise_id in enterprises_id:
         # Получить все данные по id предпреятия

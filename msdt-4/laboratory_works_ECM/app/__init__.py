@@ -11,7 +11,6 @@ from .routes.error import ERROR
 from .routes.product import PRODUCT
 from .routes.report import REPORT
 
-
 @logger.catch
 def create_app(config_class=Config):
     app = Flask(__name__)

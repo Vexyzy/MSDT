@@ -213,6 +213,7 @@ def integrity_error(id: int):
             return redirect('/order')
         except Exception as e:
             print(e)
+            logger.error("Some not identified error of deleting order")
             flash('Произошла ошибка удаления', 'danger')
             return redirect('/order')
     elif request.method == 'GET':
