@@ -112,7 +112,7 @@ def create_product():
             return render_template("product/create.html", product=product)
         except Exception as e:
             print(e)
-            flash(str(e))
+            flash(str(e), "danger")
             return render_template("product/create.html", product=product)
     else:
         return render_template("product/create.html", product=None)

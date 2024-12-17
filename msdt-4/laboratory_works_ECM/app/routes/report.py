@@ -2,10 +2,13 @@ import datetime
 import os
 
 import flask
-from flask import Blueprint
+from flask import Blueprint, redirect, flash
 from sqlalchemy import text
 
 from ..extensions import DB
+from ..etc.logger import logger
+
+
 import xlsxwriter
 
 
@@ -19,13 +22,19 @@ REPORT_NAME_WITH_PATH = (f'/Users/ivanaleksandrovci/code/ssau_laboratory/'
                f'{datetime.datetime.now().year} год.xlsx'
 )
 
-
+@logger.catch
 @REPORT.route('/report', methods=['GET', 'POST'])
 def create_report():
+    logger.debug(
+        "Starting building report of orders in "
+      + f"{datetime.datetime.now().year}"
+    )
+
     try:
         os.remove(REPORT_NAME_WITH_PATH)
     except OSError:
         pass
+
     workbook = xlsxwriter.Workbook(REPORT_NAME_WITH_PATH)
     worksheet = workbook.add_worksheet()
     cell_format_bolt = workbook.add_format({'bold': True})
@@ -48,6 +57,10 @@ def create_report():
     row_id = 0
     total_sum = 0
     enterprise_sum = 0
+    # Имитируем ошибку
+    logger.error("Can't create report. There are some math mistakes and...")
+    flash("Внезапная ошибка в построении отчёта!", "danger")
+    return redirect("/")
     # Проходимся по всем полученные id предприятий доставки
     for enterprise_id in enterprises_id:
         # Получить все данные по id предпреятия
@@ -71,7 +84,6 @@ def create_report():
 
         # Пройтись по всем данным
         for i in range(0, len(order_info)):
-            print(order_info[i])
             # Записать каждую информацию о заказе в строку
             worksheet.write(row_id, 0, str(order_info[i][0]))
             worksheet.write(row_id, 1, str(order_info[i][1]))
@@ -98,6 +110,7 @@ def create_report():
     worksheet.write(row_id, 1, total_sum, cell_format_money)
     worksheet.autofit()
     workbook.close()
+    logger.debug("The report succesfully build!")
 
     return flask.send_file(REPORT_NAME_WITH_PATH, as_attachment=True)
 

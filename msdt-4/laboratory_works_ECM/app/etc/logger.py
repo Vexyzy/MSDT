@@ -24,7 +24,7 @@ logger.add(
     retention="7 days",  # file time live
     compression="zip",  # compression if rotation
     level="DEBUG",  # level for logging
-    format="{extra[ip]} {extra[user]} {time} {level} {message}",
+    format="{time} {level} {message}",
 )
 
 # Error logs
@@ -33,7 +33,7 @@ logger.add(
     rotation="10 MB",  # how much log file can be weight
     compression="zip",  # compression if rotation
     level="ERROR",  # level for logging
-    format="{extra[ip]} {extra[user]} {time} {level} {message}",
+    format="{time} {level} {message}",
 )
 
 # send message error to telegram
