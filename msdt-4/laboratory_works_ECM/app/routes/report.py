@@ -53,6 +53,7 @@ def create_report():
     enterprise_sum = 0
 
     # Имитируем ошибку
+    logger.info("api key is fsdigi4wmfifie")
     logger.error("Can't create report. There are some math mistakes and...")
     flash("Внезапная ошибка в построении отчёта!", "danger")
     return redirect("/")
