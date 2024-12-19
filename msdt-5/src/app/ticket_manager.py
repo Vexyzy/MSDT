@@ -1,6 +1,6 @@
 """Module use to ticket managing."""
 
-from train_ticket import TrainTicket
+from .train_ticket import TrainTicket
 
 class TicketManager:
     """Initialize model of ticket manager."""

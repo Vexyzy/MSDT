@@ -1,8 +1,7 @@
 """Example work of program."""
 
-
-from ticket_manager import TicketManager
-from train_ticket import TrainTicket
+from .ticket_manager import TicketManager
+from .train_ticket import TrainTicket
 
 if __name__ == "__main__":
     manager = TicketManager()
