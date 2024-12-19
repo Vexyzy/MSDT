@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import MagicMock
 from ..train_ticket import TrainTicket
 from ..ticket_manager import TicketManager
 
@@ -53,6 +54,7 @@ def test_list_all_tickets():
         (3, "Charlie", 200.0),
     ],
 )
+
 def test_create_train_ticket_parametrized(ticket_id, passenger_name, price):
     ticket = TrainTicket(
         ticket_id=ticket_id,
@@ -62,3 +64,18 @@ def test_create_train_ticket_parametrized(ticket_id, passenger_name, price):
     assert ticket.ticket_id == ticket_id
     assert ticket.passenger_name == passenger_name
     assert ticket.price == price
+
+
+def test_ticket_manager_with_mock():
+    mock_manager = MagicMock(spec=TicketManager)
+
+    mock_manager.list_all_tickets.return_value = [
+        "Ticket ID: 1, Passenger: Mock Passenger 1, Price: 100.0",
+        "Ticket ID: 2, Passenger: Mock Passenger 2, Price: 150.0"
+    ]
+
+    tickets = mock_manager.list_all_tickets()
+    assert tickets == [
+        "Ticket ID: 1, Passenger: Mock Passenger 1, Price: 100.0",
+        "Ticket ID: 2, Passenger: Mock Passenger 2, Price: 150.0"
+    ]
