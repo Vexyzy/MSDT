@@ -39,7 +39,26 @@ def test_list_all_tickets():
 
     expected_output = [
         "Ticket ID: 4, Passenger: Bob, Price: 250.0",
-        "Ticket ID: 5, Passenger: Charlie, Price: 300.0"
+        "Ticket ID: 5, Passenger: Charlie, Price: 300.0",
     ]
 
     assert manager.list_all_tickets() == expected_output
+
+
+@pytest.mark.parametrize(
+    "ticket_id, passenger_name, price",
+    [
+        (1, "Alice", 100.0),
+        (2, "Bob", 150.0),
+        (3, "Charlie", 200.0),
+    ],
+)
+def test_create_train_ticket_parametrized(ticket_id, passenger_name, price):
+    ticket = TrainTicket(
+        ticket_id=ticket_id,
+        passenger_name=passenger_name,
+        price=price
+    )
+    assert ticket.ticket_id == ticket_id
+    assert ticket.passenger_name == passenger_name
+    assert ticket.price == price
