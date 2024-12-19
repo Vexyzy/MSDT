@@ -11,6 +11,8 @@ class TicketManager:
 
     def add_ticket(self, ticket: TrainTicket):
         """Добавляет билет в систему."""
+        if not isinstance(ticket, TrainTicket):
+            raise ValueError("Only TrainTicket instances can be added.")
         self.tickets.append(ticket)
 
     def remove_ticket(self, ticket_id):
